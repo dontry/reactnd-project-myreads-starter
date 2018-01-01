@@ -6,7 +6,8 @@ import Book from './Book';
 class BookShelf extends React.Component {
     static propTypes = {
         title: PropTypes.string.isRequired,
-        books: PropTypes.array.isRequired
+        books: PropTypes.array.isRequired,
+        onChangeShelf: PropTypes.func.isRequired
     }
     render() {
         return (
@@ -16,7 +17,7 @@ class BookShelf extends React.Component {
                     <ol className="books-grid">
                         {/* TODO check on myreads API */}
                         {this.props.books.map((book, idx) => {
-                           return <Book key={idx} book={book}/>
+                           return <Book key={`book_${idx}`} book={book} onChangeShelf={this.props.onChangeShelf}/>
                         })}
                     </ol>
                 </div>

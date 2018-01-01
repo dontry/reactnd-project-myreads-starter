@@ -1,31 +1,18 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import BookShelf from './BookShelf';
-import * as BooksAPI from '../BooksAPI';
 
 class BookList extends React.Component {
-  state = {
-    books: []
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    onChangeShelf: PropTypes.func.isRequired
   }
-
-  componentDidMount() {
-    BooksAPI.getAll().then(books => {
-      this.setState({ books })
-    });
-  }
-
-  handleChangeCategory(bookId, shelf) {
-   BooksAPI.update(bookId, shelf).then(() => {
-     BooksAPI.getAll().then(books => {
-       this.setState({ books})
-     })
-   }) 
-  }
-
+  
   render() {
-    const currentlyReadingBooks = this.state.books.filter(book => book.shelf === 'currentlyReading');
-    const wantToReadBooks = this.state.books.filter(book => book.shelf === 'wantToRead');
-    const readBooks = this.state.books.filter(book => book.shelf === 'read');
+    const books = this.props.books;
+    const currentlyReadingBooks = books.filter(book => book.shelf === 'currentlyReading');
+    const wantToReadBooks = books.filter(book => book.shelf === 'wantToRead');
+    const readBooks = books.filter(book => book.shelf === 'read');
 
     return (
       <div className="list-books">
@@ -34,9 +21,9 @@ class BookList extends React.Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf title="Currently Reading" books={currentlyReadingBooks} onChangeCategory={() => {this.onChangeCategory()}}/>
-            <BookShelf title="Want to Read" books={wantToReadBooks} onChangeCategory={() => {this.onChangeCategory()}}/>
-            <BookShelf title="Read" books={readBooks} />
+            <BookShelf title="Currently Reading" books={currentlyReadingBooks} onChangeShelf={this.props.onChangeShelf}/>
+            <BookShelf title="Want to Read" books={wantToReadBooks} onChangeShelf={this.props.onChangeShelf}/>
+            <BookShelf title="Read" books={readBooks} onChangeShelf={this.props.onChangeShelf} />
           </div>
         </div>
         <div className="open-search">
