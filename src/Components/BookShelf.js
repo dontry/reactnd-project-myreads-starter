@@ -10,7 +10,7 @@ const BookShelf = ({title, books, onChangeShelf}) => {
                 <ol className="books-grid">
                     {/* TODO check on myreads API */}
                     {books.map((book, idx) => {
-                        return <Book key={`book_${idx}`} book={book} onChangeShelf={onChangeShelf} />
+                        return <Book key={book.id} book={book} onChangeShelf={onChangeShelf} />
                     })}
                 </ol>
             </div>

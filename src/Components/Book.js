@@ -13,16 +13,16 @@ class Book extends React.Component {
 
     handleChangeShelf = (event) => {
         event.preventDefault();
+        this.setState({loading: true});
         const shelf = event.target.value;
         const { id } = this.props.book;
         this.props.onChangeShelf && this.props.onChangeShelf(id, shelf);
-        this.setState({loading: true});
     }
 
     render() {
         const { title, authors, imageLinks, previewLink, shelf } = this.props.book;
         const { loading } = this.state;
-        let changerName = loading ? 'book-shelf-changer loading' : 'book-shelf-changer';
+        const changerName = loading ? 'book-shelf-changer loading' : 'book-shelf-changer';
         return (
             <li>
                 <div className="book">
