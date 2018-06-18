@@ -16,7 +16,11 @@ class Book extends React.Component {
         this.setState({loading: true});
         const shelf = event.target.value;
         const { id } = this.props.book;
-        this.props.onChangeShelf && this.props.onChangeShelf(id, shelf);
+        // change back loading status after changing onChangeShelf is finished.
+        this.props.onChangeShelf && 
+        this.props.onChangeShelf(id, shelf).then(() => {
+            this.setState({loading: false});
+        });
     }
 
     render() {

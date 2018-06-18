@@ -24,7 +24,7 @@ class SearchBar extends React.Component {
         const { booksOnShelf } = this.props;
         return books.map((book, idx) => {
             for (let i = 0; i < booksOnShelf.length; i++) {
-                if (booksOnShelf[i].title === book.title) {
+                if (booksOnShelf[i].id === book.id) {
                     book.shelf = booksOnShelf[i].shelf
                     return <Book key={idx} book={book} onChangeShelf={this.props.onChangeShelf} />
                 }
@@ -41,7 +41,7 @@ class SearchBar extends React.Component {
                 <div className="search-books-bar">
                     <span className="close-search" onClick={this.props.onCloseSearch} />
                     <div className="search-books-input-wrapper">
-                        <input
+                        <input autofocus
                             type="text"
                             placeholder="Search by title or author"
                             value={query}
