@@ -11,6 +11,7 @@ class BooksApp extends React.Component {
     this.state = {
       books: []
     }
+    this.handleChangeShelf.bind(this);
   }
 
   componentDidMount() {
@@ -21,9 +22,10 @@ class BooksApp extends React.Component {
 
   handleChangeShelf(bookId, shelf) {
     //return a promise to chain
+    const self = this;
     return BooksAPI.update({ id: bookId }, shelf).then(() => {
       BooksAPI.getAll().then(books => {
-        this.setState({ books })
+        self.setState({ books })
       })
     })
   }

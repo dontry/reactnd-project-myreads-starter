@@ -9,17 +9,19 @@ class Book extends React.Component {
         this.state = {
             loading: false
         }
+        this.handleUpdateShelf.bind(this);
     }
 
-    handleChangeShelf = (event) => {
+    handleUpdateShelf(event) {
         event.preventDefault();
         this.setState({loading: true});
         const shelf = event.target.value;
         const { id } = this.props.book;
         // change back loading status after changing onChangeShelf is finished.
+        const self = this;
         this.props.onChangeShelf && 
         this.props.onChangeShelf(id, shelf).then(() => {
-            this.setState({loading: false});
+            self.setState({loading: false});
         });
     }
 
@@ -33,7 +35,7 @@ class Book extends React.Component {
                     <div className="book-top">
                         <a href={previewLink}><div className="book-cover" style={coverStyle(imageLinks)}></div></a>
                         <div className={changerName} >
-                            <select value={shelf} onChange={(event) => this.handleChangeShelf(event)}>
+                            <select value={shelf} onChange={this.handleUpdateShelf.bind(this)}>
                                 <option disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
